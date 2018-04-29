@@ -62,7 +62,7 @@
              
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li>
+                        <li class="active">
                             <a href="index.html">Home</a>
                         </li>
                         <li>
@@ -77,96 +77,9 @@
         </nav>
         
         <div class="container">
-            <div ng-show="userFound">
-                <center>
-                    <h1>{{full_name}}</h1>
-                    <h4><a href="mailto:{{email}}">{{email}}</a></h4>
-                    <h4>{{school}}</h4>
-                    
-                    <button class="btn btn-primary" ng-click="claimOwnership()" ng-show="!authenticated && !enrolled">This is Me</button>
-                    
-                    <div ng-show="enrolled">
-                        <div class="jumbotron" style="margin-bottom: 0px;">
-                            <p>Administrative Info</p>
-                            <h2 ng-show="data.is_minor" style="margin-top: 10px; margin-bottom: 0px">Minor</h2>
-                            <h2 style="margin-top: 10px">{{data.dietary_restrictions}}</h2>
-                            <h3>Shirt Size: {{data.shirt_size}}</h3>
-                        </div>
-                        <br>
-                        
-                        <table>
-                            <tr>
-                                <th>Checked In</th>
-                                <th>Lunch #1</th>
-                                <th>Dinner</th>
-                                <th>Breakfast</th>
-                                <th>Lunch #2</th>
-                                <th>Shirt</th>
-                            </tr>
-                            
-                            <tr>
-                                <td ng-class="{'true': data.checked_in, 'false': !data.checked_in}"></td>
-                                <td ng-class="{'true': data.ate_lunch1, 'false': !data.ate_lunch1}"></td>
-                                <td ng-class="{'true': data.ate_dinner, 'false': !data.ate_dinner}"></td>
-                                <td ng-class="{'true': data.ate_breakfast, 'false': !data.ate_breakfast}"></td>
-                                <td ng-class="{'true': data.ate_lunch2, 'false': !data.ate_lunch2}"></td>
-                                <td ng-class="{'true': data.got_shirt, 'false': !data.got_shirt}"></td>
-                            </tr>
-                        </table>
-                        <br>
-
-                        <div ng-show="showActionIndex">
-                            <b>Actions:</b>
-                            <ul class="list-group">
-                                <li class="list-group-item list-group-item-success" ng-click="checkInRegistrant()">Check-In Registrant</li>
-                                <li class="list-group-item list-group-item-info" ng-click="showMealIndexView()">Mark a Meal As Eaten</li>
-                                <li class="list-group-item list-group-item-warning" ng-click="showWorkshopIndexView()">Workshop Attendance Check-In</li>
-                                <li class="list-group-item list-group-item-success" ng-click="giveShirt()">Give Shirt</li>
-                            </ul>
-                        </div>
-                        
-                        <div ng-show="!showActionIndex && showMealIndex">
-                            <b>Meals:</b>
-                            <ul class="list-group">
-                                <li class="list-group-item list-group-item-warning" ng-click="backToActions()">Back to Actions</li>
-                                <li class="list-group-item" ng-click="markMeal('lunch1')">Lunch #1</li>
-                                <li class="list-group-item" ng-click="markMeal('dinner')">Dinner</li>
-                                <li class="list-group-item" ng-click="markMeal('breakfast')">Breakfast</li>
-                                <li class="list-group-item" ng-click="markMeal('lunch2')">Lunch #2</li>
-                            </ul>
-                        </div>
-                        
-                        <div ng-show="!showActionIndex && showWorkshopIndex">
-                            <b>Workshops:</b>
-                            <ul class="list-group">
-                                <li class="list-group-item list-group-item-warning" ng-click="backToActions()">Back to Actions</li>
-                                <li class="list-group-item" ng-repeat="item in workshops">{{item.workshop_name}} @ {{item.workshop_time}}</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div ng-show="authenticated">
-                        <h4>Modify Data Privacy Settings</h4>
-                        
-                        <form ng-submit="updatePrivacySettings()">
-                            <div class="checkbox">
-                                <label><input type="checkbox" ng-model="checkboxModel.show_email" ng-checked="data.show_email">Show Email</label>
-                            </div>
-                            
-                            <div class="checkbox">
-                                <label><input type="checkbox" ng-model="checkboxModel.show_school" ng-checked="data.show_school" ng-true-value="true" value="{{data.show_school}}" name="show_school">Show School</label>
-                            </div>
-                            
-                            <input class="btn btn-success" type="submit" value="Save">
-                        </form>
-                    </div>
-                </center>
-            </div>
-            
-            <div ng-show="!userFound">
-                <center>
-                    <h1>User Not Found</h1>
-                </center>
+            <div class="jumbotron">
+                <h1>Welcome to HackCheck</h1>
+                <p>HackCheck is a QR-based badging and administrative system. It serves to reduce check-in times, and eventually serve as a platform like a social network at hackathons solely based on profiles only accessible by addresses in physical QR codes.</p>
             </div>
         </div>
         
