@@ -299,14 +299,22 @@ app.controller("RegistrantViewCtrl", function($scope, $window, $firebaseArray) {
         $scope.registrant.$save(data)
         .then(function() {
             alert("Privacy settings saved!");
+            
+            $scope.data = $scope.registrant[0];
+        
+            if ($scope.data.show_email) 
+                $scope.email = $scope.data.email;
+            else
+                $scope.email = "";
+            if ($scope.data.show_school)
+                $scope.school = $scope.data.school;
+            else
+                $scope.school = "";
+            if ($scope.data.show_workshops)
+                $scope.workshops_attended = $scope.data.workshops_attended;
+            else 
+                $scope.workshops_attended = [];
         });
-        
-        $scope.data = $scope.registrant[0];
-        
-        if ($scope.data.show_email) 
-            $scope.email = $scope.data.email;
-        if ($scope.data.show_school)
-            $scope.school = $scope.data.school;
     };
 });
 
