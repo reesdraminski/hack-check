@@ -122,7 +122,7 @@ app.controller("RegistrationCtrl", function($scope, $window, $firebaseArray) {
             $scope.loading = false;
             
             // Generate URL
-            var rootURL = "https://tecanal-reesdraminski.c9users.io/qr-hack";
+            var rootURL = "https://reesdraminski.github.io/hack-check/user.html";
             var url = rootURL + "?id=" + $scope.id;
             
             // Generate QR Code
