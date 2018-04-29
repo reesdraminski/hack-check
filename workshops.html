@@ -56,78 +56,15 @@
                         <li class="active">
                             <a href="workshops.html">Workshops</a>
                         </li>
+                        <li ng-show="enrolled">
+                            <a href="admin.html">Admin</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
         
         <div class="container">
-            <div ng-show="enrolled">
-                <h3 class="page-header" style="margin-top: 0px">Workshop Manager</h3>
-                
-                <div class="panel-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" href="#collapse2">View Workshop Attendance</a>
-                            </h4>
-                        </div>
-                        
-                        <div id="collapse2" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <ul class="list-group">
-                                    <li class="list-group-item" ng-repeat="item in workshops" ng-click="editWorkshop($index)">
-                                        <h4>{{item.workshop_name}} @ {{item.workshop_time}}</h4>
-                                        <ul>
-                                            <li ng-repeat="person in item.attendance">{{person}}</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="panel-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" href="#collapse1">Edit Existing Workshop</a>
-                            </h4>
-                        </div>
-                        
-                        <div id="collapse1" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <ul class="list-group">
-                                    <li class="list-group-item" ng-repeat="item in workshops" ng-click="editWorkshop($index)">{{item.workshop_name}} @ {{item.workshop_time}}</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <form ng-submit="createWorkshop()">
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control" ng-model="workshop_name">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Time</label>
-                        <input type="text" class="form-control" ng-model="workshop_time">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Location</label>
-                        <input type="text" class="form-control" ng-model="workshop_location">
-                    </div> 
-                    
-                    <button class="btn btn-primary" ng-click="clearForm()">Clear Form</button>
-                    <input type="submit" class="btn btn-success" value="Add Workshop">
-                </form>
-            </div>
-            
-            <div ng-show="!enrolled">
                 <h3 class="page-header" style="margin-top: 0px">Workshops</h3>
                 
                 <ul class="list-group">
@@ -137,7 +74,7 @@
                         <p><b>Location: </b>{{item.workshop_location}}</p>
                     </li>
                 </ul>
-            </div>
+        
         </div>
     
     <!-- Bootstrap Scripts -->

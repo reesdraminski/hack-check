@@ -26,9 +26,29 @@
             .true {background-color: green;}
             .false {background-color: red;}
         </style>
+      
+        <!-- Firebase Scripts -->
+        <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyAw_-VYAmPs5IM1D7u6VmUj_zLcsBnh0GI",
+            authDomain: "qr-hack.firebaseapp.com",
+            databaseURL: "https://qr-hack.firebaseio.com",
+            projectId: "qr-hack",
+            storageBucket: "qr-hack.appspot.com",
+            messagingSenderId: "652489716331"
+          };
+          firebase.initializeApp(config);
+        </script>
+        
+        <!-- Angular App Scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+        <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
    </head>
    
-   <body>
+   <body ng-controller="RegistrantViewCtrl">
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -51,6 +71,9 @@
                         <li>
                             <a href="workshops.html">Workshops</a>
                         </li>
+                        <li>
+                            <a href="admin.html">Admin</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -66,5 +89,10 @@
         <!-- Bootstrap Scripts -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <!--- Device Fingerprinting Script -->
+        <script src="js/fprint.js"></script>
+        
+        <script src="js/app.js"></script>
     </body>
 </html>

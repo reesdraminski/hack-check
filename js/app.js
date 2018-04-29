@@ -151,6 +151,7 @@ app.controller("RegistrantViewCtrl", function($scope, $window, $firebaseArray) {
     
     $scope.enrolled_devices = $firebaseArray(firebase.database().ref().child("enrolled_devices"));
     
+    $scope.enrolled = false;
     $scope.enrolled_devices.$loaded(function() {
         new Fingerprint2().get(function(result, components) {
             var deviceFingerprint = result;
@@ -337,6 +338,30 @@ app.controller("WorkshopManagerCtrl", function($scope, $window, $firebaseArray) 
     
     $scope.enrolled_devices = $firebaseArray(firebase.database().ref().child("enrolled_devices"));
     
+    $scope.enrolled_devices.$loaded(function() {
+        new Fingerprint2().get(function(result, components) {
+            var deviceFingerprint = result;
+                    
+            for (var i = 0; i < $scope.enrolled_devices.length; i++) {
+                var enrolledDeviceFingerprint = $scope.enrolled_devices[i].fingerprint;
+                
+                if (deviceFingerprint == enrolledDeviceFingerprint) {
+                    $scope.$apply(function() {
+                         $scope.enrolled = true;
+                    });
+                    
+                    break;
+                }
+            }
+        });
+    });
+});
+
+app.controller("AdminCtrl", function($scope, $window, $firebaseArray) { 
+    $scope.workshops = $firebaseArray(firebase.database().ref().child("workshops"));
+    
+    $scope.enrolled_devices = $firebaseArray(firebase.database().ref().child("enrolled_devices"));
+    
     $scope.index = -1;
     
     $scope.enrolled_devices.$loaded(function() {
@@ -365,6 +390,15 @@ app.controller("WorkshopManagerCtrl", function($scope, $window, $firebaseArray) 
         $scope.workshop_name = data.workshop_name;
         $scope.workshop_location = data.workshop_location;
         $scope.workshop_time = data.workshop_time;
+    };
+    
+    $scope.deleteWorkshop = function(index) {
+        var data = $scope.workshops[index];
+        
+        $scope.workshops.$remove(data)
+        .then(function() {
+            alert("Workshop deleted."); 
+        });
     };
     
     $scope.clearForm = function() {
