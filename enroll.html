@@ -1,0 +1,77 @@
+<!doctype html>
+<html ng-app="hack-check">
+    <head>
+        <title>Enroll Authorized Devices</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+      
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        
+        <style>
+            nav {margin-bottom: 0px !important; border-radius: 0 !important;}
+            h3 {margin-top: 5px;}
+            .fa {font-size: 3em;}
+        </style>
+      
+        <!-- Firebase Scripts -->
+        <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyAw_-VYAmPs5IM1D7u6VmUj_zLcsBnh0GI",
+            authDomain: "qr-hack.firebaseapp.com",
+            databaseURL: "https://qr-hack.firebaseio.com",
+            projectId: "qr-hack",
+            storageBucket: "qr-hack.appspot.com",
+            messagingSenderId: "652489716331"
+          };
+          firebase.initializeApp(config);
+        </script>
+        
+        <!-- Angular App Scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+        <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
+   </head>
+   
+   <body ng-controller="EnrollmentCtrl">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">HackUMBC</a>
+                </div>
+             
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a href="resources.html">Resources</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="container">
+            <center>
+                <h1 ng-show="enrollment_success">Device Enrolled</h1>
+            </center>
+        </div>
+        
+        <!-- Bootstrap Scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <!--- Device Fingerprinting Script -->
+        <script src="js/fprint.js"></script>
+        
+        <script src="js/app.js"></script>
+    </body>
+</html>

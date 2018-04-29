@@ -1,0 +1,193 @@
+<!doctype html>
+<html ng-app="hack-check">
+    <head>
+        <title>Registration</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+      
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        
+        <style>
+            nav {border-radius: 0 !important;}
+            h3 {margin-top: 5px;}
+            .fa {font-size: 3em;}
+        </style>
+      
+        <!-- Firebase Scripts -->
+        <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyAw_-VYAmPs5IM1D7u6VmUj_zLcsBnh0GI",
+            authDomain: "qr-hack.firebaseapp.com",
+            databaseURL: "https://qr-hack.firebaseio.com",
+            projectId: "qr-hack",
+            storageBucket: "qr-hack.appspot.com",
+            messagingSenderId: "652489716331"
+          };
+          firebase.initializeApp(config);
+        </script>
+        
+        <!-- Angular App Scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+        <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+        <script src="js/app.js"></script>
+    </head>
+    
+    <body ng-controller="RegistrationCtrl">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">HackUMBC</a>
+                </div>
+             
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li class="active">
+                            <a href="register.html">Register</a>
+                        </li>
+                        <li>
+                            <a href="workshops.html">Workshops</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="container">
+            <div ng-show="registration">
+                <h2>HackUMBC Registration</h2>
+                <p>Don't freak out! The form will slowly show itself to you as you provide it with more information.</p>
+                
+                <form ng-submit="register()">
+                    <div class="form-group">
+                        <label for="first_name">Hey! What's your first name?</label>
+                        <input type="text" class="form-control" ng-model="first_name" id="first_name" required>
+                    </div>
+                    
+                    <div class="form-group" ng-hide="!first_name">
+                        <label for="last_name">What about your last name, {{first_name}}?</label>
+                        <input type="text" class="form-control" ng-model="last_name" id="last_name" required>
+                    </div>
+                    
+                    <div class="form-group" ng-hide="!last_name">
+                        <label for="email">Nice to meet you, {{first_name + " " + last_name}}, what's your email address?</label>
+                        <input type="email" class="form-control" ng-model="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group" ng-hide="!email">
+                        <label for="phone_number">What's your phone number (no dashes or spaces)?</label>
+                        <input type="text" class="form-control" ng-model="phone_number" id="phone_number" required>
+                    </div>
+                    
+                    <div class="form-group" ng-hide="!phone_number">
+                        <label for="is_minor">Are you a minor? &nbsp;</label>
+                        <input type="checkbox" id="is_minor" ng-model="is_minor" style="transform: scale(1.5)" required>
+                    </div>
+                    
+                    <!-- Show if the registrant is a minor -->
+                    <div ng-show="is_minor">
+                        <div class="form-group">
+                            <label for="emergency_contact_name">Emergency Contact Name</label>
+                            <input type="text" class="form-control" ng-model="emergency_contact_name" id="emergency_contact_name" ng-required="is_minor">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="emergency_contact_name">Emergency Contact Relationship To You</label>
+                            <input type="text" class="form-control" ng-model="emergency_contact_relationship" id="emergency_contact_relationship" ng-required="is_minor">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="emergency_contact_name">Emergency Contact Phone Number</label>
+                            <input type="text" class="form-control" ng-model="emergency_contact_phone" id="emergency_contact_phone" ng-required="is_minor">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" ng-hide="!phone_number">
+                        <label for="school">What school do you go to, {{first_name}}?</label>
+                        <input type="text" class="form-control" ng-model="school" id="school" required>
+                    </div>
+                    
+                    <div class="form-group" ng-hide="!school">
+                        <label for="shirt_size">What's your t-shirt size, if you don't mind me asking, {{first_name}}?</label><br>
+                        <label class="radio-inline"><input type="radio" ng-model="shirt_size" value="Small">Small</label>
+                        <label class="radio-inline"><input type="radio" ng-model="shirt_size" value="Medium">Medium</label>
+                        <label class="radio-inline"><input type="radio" ng-model="shirt_size" value="Large">Large</label>
+                        <label class="radio-inline"><input type="radio" ng-model="shirt_size" value="X-Large">X-Large</label>
+                        <label class="radio-inline"><input type="radio" ng-model="shirt_size" value="XX-Large">XX-Large</label>
+                    </div>
+                    
+                    <div class="form-group" ng-hide="!shirt_size">
+                        <label for="dietary_restrictions">Do you have any dietary restrictions, {{first_name}}?</label>
+                        <label class="radio-inline"><input type="radio" ng-model="dietary_restrictions" value="None">None</label>
+                        <label class="radio-inline"><input type="radio" ng-model="dietary_restrictions" value="Vegetarian">Vegetarian</label>
+                        <label class="radio-inline"><input type="radio" ng-model="dietary_restrictions" value="Vegan">Vegan</label>
+                        <label class="radio-inline"><input type="radio" ng-model="dietary_restrictions" value="Gluten Free">Gluten Free</label>
+                        <label class="radio-inline"><input type="radio" ng-model="dietary_restrictions" value="Food Allergies">Food Allergies</label>
+                        <label class="radio-inline"><input type="radio" ng-model="dietary_restrictions" value="Other">Other</label>
+                        
+                        <input type="text" ng-show="dietary_restrictions == 'Other'" ng-model="dietary_other_text">
+                        <input type="text" ng-show="dietary_restrictions == 'Food Allergies'" ng-model="food_allergies" placeholder="Enter Food Allergies">
+                    </div>
+                    
+                    <div ng-hide="!dietary_restrictions">
+                        <div class="form-group">
+                            <label>I will at all times abide by and conform to the Major League Hacking Code of Conduct while at the event (http://mlh.io/code-of-conduct)</label>
+                            
+                            <div class="radio">
+                                <label><input type="radio" ng-model="code_of_conduct" value="I accept" name="code_of_conduct" required>I accept</label>
+                            </div>
+                            
+                             <div class="radio">
+                                <label><input type="radio" ng-model="code_of_conduct" name="code_of_conduct" value="I do not accept">I do not accept</label>
+                            </div>
+                            
+                            <p ng-show="code_of_conduct == 'I do not accept'">If you do not accept you will not be allowed to attend the event.</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>We participate in Major League Hacking (MLH) as a MLH Member Event. You authorize us to share certain application/registration information for event administration, ranking, MLH administration, and occasional messages about hackathons in line with the MLH Privacy Policy.</label>
+                            
+                            <div class="radio">
+                                <label><input type="radio" ng-model="privacy_policy" name="privacy_policy" value="I accept" required>I accept</label>
+                            </div>
+                            
+                             <div class="radio">
+                                <label><input type="radio" ng-model="privacy_policy" name="privacy_policy" value="I do not accept">I do not accept</label>
+                            </div>
+                            
+                            <p ng-show="privacy_policy == 'I do not accept'">If you do not accept you will not be allowed to attend the event.</p>
+                        </div>
+                    </div>
+                    
+                    <input type="submit" class="btn btn-success" value="Register" ng-show="code_of_conduct && privacy_policy">
+                </form>
+            </div>
+            
+            <div ng-show="loading">
+                <center>
+                    Sit tight while your QR Code being submitted.
+                </center>
+            </div>
+        
+            <div ng-hide="registration">
+                <div id="qrcode"></div>
+            </div>
+        </div>
+    
+    <!-- Bootstrap Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <!-- QR Code Generation Script -->
+    <script src="js/qrcode.min.js"></script>
+  </body>
+</html>
