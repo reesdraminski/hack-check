@@ -315,6 +315,12 @@ app.controller("EnrollmentCtrl", function($scope, $window, $firebaseArray) {
     
     var password = prompt("What is the password?");
     
+    // If nothing is entered, show nothing
+    if (password == undefined) {
+        $scope.enrollment_success = false;
+        return;
+    }
+    
     // the hash of HackUMBCF2019!
     if (hashCode(password) == -354336881) {
         // Create device fingerprint
