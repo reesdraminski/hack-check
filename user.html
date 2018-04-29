@@ -82,6 +82,10 @@
                     <h1>{{full_name}}</h1>
                     <h4><a href="mailto:{{email}}">{{email}}</a></h4>
                     <h4>{{school}}</h4>
+                    <ul class="list-group" ng-show="workshops_attended.length > 0">
+                        <li class="list-group-item"><h5>Workshops</h5></li>
+                        <li class="list-group-item" ng-repeat="item in workshops_attended">{{item}}</li>
+                    </ul>
                     
                     <button class="btn btn-primary" ng-click="claimOwnership()" ng-show="!authenticated && !enrolled">This is Me</button>
                     
@@ -140,7 +144,7 @@
                             <b>Workshops:</b>
                             <ul class="list-group">
                                 <li class="list-group-item list-group-item-warning" ng-click="backToActions()">Back to Actions</li>
-                                <li class="list-group-item" ng-repeat="item in workshops">{{item.workshop_name}} @ {{item.workshop_time}}</li>
+                                <li class="list-group-item" ng-repeat="item in workshops" ng-click="checkInWorkshop($index)">{{item.workshop_name}} @ {{item.workshop_time}}</li>
                             </ul>
                         </div>
                     </div>
@@ -155,6 +159,10 @@
                             
                             <div class="checkbox">
                                 <label><input type="checkbox" ng-model="checkboxModel.show_school" ng-checked="data.show_school" ng-true-value="true" value="{{data.show_school}}" name="show_school">Show School</label>
+                            </div>
+                            
+                            <div class="checkbox">
+                                <label><input type="checkbox" ng-model="checkboxModel.show_workshops" ng-checked="data.show_workshops" ng-true-value="true" value="{{data.show_workshops}}" name="show_workshops">Show Workshops</label>
                             </div>
                             
                             <input class="btn btn-success" type="submit" value="Save">

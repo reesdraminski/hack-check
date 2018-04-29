@@ -180,7 +180,8 @@ app.controller("RegistrantViewCtrl", function($scope, $window, $firebaseArray) {
             // Data privacy controls value initialization
             $scope.checkboxModel = {
                 show_email: $scope.data.show_email,
-                show_school: $scope.data.show_school
+                show_school: $scope.data.show_school,
+                show_workshops: $scope.data.show_workshops
             };
             
             // Email is only set straight from database when enabled for security reasons
@@ -194,6 +195,11 @@ app.controller("RegistrantViewCtrl", function($scope, $window, $firebaseArray) {
                 $scope.school = $scope.data.school;
             else
                 $scope.school = "";
+                
+            if ($scope.data.show_workshops)
+                $scope.workshops_attended = $scope.data.workshops_attended;
+            else
+                $scope.workshops_attended = [];
         }
         else
             $scope.userFound = false;
@@ -235,7 +241,36 @@ app.controller("RegistrantViewCtrl", function($scope, $window, $firebaseArray) {
         $scope.showActionIndex = false;
         $scope.showMealIndex = false;
         $scope.showWorkshopIndex = true;
-    }
+    };
+    
+    $scope.checkInWorkshop = function(index) {
+        var workshop = $scope.workshops[index];
+        var registrant = $scope.registrant[0];
+        
+        var attendance = workshop.attendance;
+        var workshops_attended = registrant.workshops_attended;
+        
+        // Add the registrant's attendance to the workshop storage
+        var name = registrant.first_name + " " + registrant.last_name;
+        if (attendance == undefined) 
+            attendance = [name];
+        else
+            attendance.push(name);
+        workshop.attendance = attendance;
+        
+        // Add the workshop name to the registrants storage
+        if (workshops_attended == undefined)
+            workshops_attended = [workshop.workshop_name];
+        else
+            workshops_attended.push(workshop.workshop_name);
+        registrant.workshops_attended = workshops_attended;
+        
+        $scope.registrant.$save(registrant);
+        $scope.workshops.$save(workshop)
+        .then(function() {
+            alert("Attendance confirmed!");
+        });
+    };
     
     $scope.giveShirt = function() {
         var data = $scope.data;

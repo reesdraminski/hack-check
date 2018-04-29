@@ -64,6 +64,29 @@
         <div class="container">
             <div ng-show="enrolled">
                 <h3 class="page-header" style="margin-top: 0px">Workshop Manager</h3>
+                
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse2">View Workshop Attendance</a>
+                            </h4>
+                        </div>
+                        
+                        <div id="collapse2" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item" ng-repeat="item in workshops" ng-click="editWorkshop($index)">
+                                        <h4>{{item.workshop_name}} @ {{item.workshop_time}}</h4>
+                                        <ul>
+                                            <li ng-repeat="person in item.attendance">{{person}}</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             
                 <div class="panel-group">
                     <div class="panel panel-default">
