@@ -371,10 +371,13 @@ app.controller("WorkshopManagerCtrl", function($scope, $window, $firebaseArray) 
     });
 });
 
-app.controller("AdminCtrl", function($scope, $window, $firebaseArray) { 
+app.controller("AdminCtrl", function($scope, $window, $firebaseArray, $timeout) { 
     $scope.workshops = $firebaseArray(firebase.database().ref().child("workshops"));
     
     $scope.enrolled_devices = $firebaseArray(firebase.database().ref().child("enrolled_devices"));
+    
+    var ref = firebase.database().ref().child("registrants");
+    $scope.registrants = $firebaseArray(ref);
     
     $scope.index = -1;
     
@@ -394,6 +397,28 @@ app.controller("AdminCtrl", function($scope, $window, $firebaseArray) {
                 }
             }
         });
+    });
+    
+    $scope.registrants.$loaded(function() {
+        var index = 0;
+        var rootURL = "https://reesdraminski.github.io/hack-check/user.html";
+        
+        $timeout(function() {
+            $scope.registrants.forEach(function(item) {
+            $scope.registrant = $firebaseArray(firebase.database().ref().child("registrants/" + item.$id));
+            
+            $scope.registrant.$loaded(function() {
+                var user = $scope.registrant[index];
+                
+                var url = rootURL + "?id=" + hashCode(user.first_name + user.last_name + user.phone_number);
+                new QRCode(document.getElementById("qrcode" + index), url);
+                
+                index++;
+            });
+        });
+        }, 2000);
+        
+        
     });
     
     $scope.editWorkshop = function(index) {
